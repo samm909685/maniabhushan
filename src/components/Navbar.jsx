@@ -51,7 +51,7 @@ function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-[#C8A044]/25 bg-[#071720]">
+    <header className="sticky top-0 z-50 w-full border-b border-[#C8A044]/25 bg-[#062D3E]">
 
       {/* =========================
           MAIN NAVBAR
