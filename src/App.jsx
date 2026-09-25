@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Collections from "./components/Collections";
+import SignaturePieces from "./components/SignaturePieces";
 
 function PlaceholderCollection({ type }) {
   return (
@@ -27,7 +28,10 @@ function Home() {
   return (
     <>
       <Hero />
+
       <Collections />
+
+      <SignaturePieces />
     </>
   );
 }
