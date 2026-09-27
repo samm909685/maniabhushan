@@ -32,3 +32,422 @@ body {
 button {
   font-family: inherit;
 }
+
+/* =========================================================
+   MANIABHUSHAN - LEGACY SECTION
+   ========================================================= */
+
+.legacy-section {
+  width: 100%;
+  background: #fff8ea;
+  padding: 80px 24px;
+  overflow: hidden;
+}
+
+.legacy-container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* ---------- Heading ---------- */
+
+.legacy-heading {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.legacy-eyebrow {
+  margin: 0 0 12px;
+  color: #ba8c5b;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+}
+
+.legacy-heading h2 {
+  margin: 0;
+  color: #062d3e;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 52px;
+  font-weight: 400;
+  line-height: 1.12;
+}
+
+.legacy-line {
+  display: block;
+  width: 56px;
+  height: 1px;
+  margin: 20px auto 0;
+  background: #ba8c5b;
+}
+
+/* ---------- Main Card ---------- */
+
+.legacy-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  min-height: 500px;
+  background: #ffffff;
+  border: 1px solid rgba(186, 140, 91, 0.55);
+}
+
+/* Inner decorative border */
+
+.legacy-card::before {
+  content: "";
+  position: absolute;
+  z-index: 3;
+  top: 14px;
+  right: 14px;
+  bottom: 14px;
+  left: 14px;
+  border: 1px solid rgba(186, 140, 91, 0.22);
+  pointer-events: none;
+}
+
+/* Corner decorations */
+
+.legacy-card::after {
+  content: "";
+  position: absolute;
+  z-index: 4;
+  top: 8px;
+  left: 8px;
+  width: 30px;
+  height: 30px;
+  border-top: 1px solid #ba8c5b;
+  border-left: 1px solid #ba8c5b;
+  pointer-events: none;
+}
+
+/* ---------- Left Content ---------- */
+
+.legacy-content {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 70px 72px;
+  background: #ffffff;
+}
+
+.legacy-since {
+  margin: 0 0 18px;
+  color: #ba8c5b;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.35em;
+}
+
+.legacy-content h3 {
+  margin: 0;
+  color: #062d3e;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 48px;
+  font-weight: 400;
+  line-height: 1.08;
+}
+
+.legacy-description {
+  max-width: 540px;
+  margin: 26px 0 0;
+  color: #38515a;
+  font-size: 16px;
+  line-height: 1.9;
+}
+
+/* ---------- Details ---------- */
+
+.legacy-details {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  margin-top: 30px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(186, 140, 91, 0.22);
+}
+
+.legacy-detail {
+  display: flex;
+  flex-direction: column;
+}
+
+.legacy-detail strong {
+  color: #062d3e;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 27px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.legacy-detail span {
+  margin-top: 7px;
+  color: #ba8c5b;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+}
+
+.legacy-divider {
+  width: 1px;
+  height: 45px;
+  margin: 0 30px;
+  background: rgba(186, 140, 91, 0.28);
+}
+
+/* ---------- Button ---------- */
+
+.legacy-button {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  margin-top: 30px;
+  padding: 13px 22px;
+  border: 1px solid #062d3e;
+  color: #062d3e;
+  background: transparent;
+  text-decoration: none;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  transition:
+    background 0.3s ease,
+    color 0.3s ease;
+}
+
+.legacy-button span {
+  margin-left: 12px;
+  font-size: 15px;
+}
+
+.legacy-button:hover {
+  color: #ffffff;
+  background: #062d3e;
+}
+
+/* ---------- Right Image ---------- */
+
+.legacy-image {
+  position: relative;
+  min-height: 500px;
+  overflow: hidden;
+  background: #dfe3e2;
+}
+
+.legacy-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 500px;
+  object-fit: cover;
+}
+
+.legacy-image-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      to top,
+      rgba(6, 45, 62, 0.72) 0%,
+      rgba(6, 45, 62, 0.08) 50%,
+      rgba(6, 45, 62, 0) 100%
+    );
+}
+
+.legacy-image-text {
+  position: absolute;
+  z-index: 5;
+  left: 42px;
+  bottom: 38px;
+  color: #ffffff;
+}
+
+.legacy-image-text span {
+  display: block;
+  padding-left: 12px;
+  border-left: 2px solid #ba8c5b;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+}
+
+.legacy-image-text h4 {
+  margin: 6px 0 0 12px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 27px;
+  font-weight: 400;
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .legacy-section {
+    padding: 65px 20px;
+  }
+
+  .legacy-heading {
+    margin-bottom: 38px;
+  }
+
+  .legacy-heading h2 {
+    font-size: 42px;
+  }
+
+  .legacy-card {
+    grid-template-columns: 1fr;
+  }
+
+  .legacy-content {
+    padding: 55px 50px;
+  }
+
+  .legacy-content h3 {
+    font-size: 42px;
+  }
+
+  .legacy-image {
+    min-height: 420px;
+  }
+
+  .legacy-image img {
+    min-height: 420px;
+  }
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+  .legacy-section {
+    padding: 55px 14px;
+  }
+
+  .legacy-heading {
+    margin-bottom: 30px;
+  }
+
+  .legacy-eyebrow {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+  }
+
+  .legacy-heading h2 {
+    font-size: 32px;
+    line-height: 1.15;
+  }
+
+  .legacy-line {
+    margin-top: 16px;
+  }
+
+  .legacy-card {
+    min-height: auto;
+  }
+
+  .legacy-content {
+    padding: 42px 28px 45px;
+  }
+
+  .legacy-since {
+    font-size: 9px;
+    letter-spacing: 0.28em;
+  }
+
+  .legacy-content h3 {
+    font-size: 35px;
+    line-height: 1.1;
+  }
+
+  .legacy-description {
+    margin-top: 22px;
+    font-size: 14px;
+    line-height: 1.8;
+  }
+
+  .legacy-details {
+    margin-top: 25px;
+    padding-top: 18px;
+  }
+
+  .legacy-detail strong {
+    font-size: 22px;
+  }
+
+  .legacy-divider {
+    height: 38px;
+    margin: 0 20px;
+  }
+
+  .legacy-button {
+    margin-top: 26px;
+    padding: 12px 18px;
+    font-size: 9px;
+  }
+
+  .legacy-image {
+    min-height: 360px;
+  }
+
+  .legacy-image img {
+    min-height: 360px;
+  }
+
+  .legacy-image-text {
+    left: 28px;
+    bottom: 28px;
+  }
+
+  .legacy-image-text h4 {
+    font-size: 22px;
+  }
+}
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 380px) {
+  .legacy-section {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .legacy-heading h2 {
+    font-size: 28px;
+  }
+
+  .legacy-content {
+    padding: 35px 22px 38px;
+  }
+
+  .legacy-content h3 {
+    font-size: 31px;
+  }
+
+  .legacy-description {
+    font-size: 13px;
+  }
+
+  .legacy-divider {
+    margin: 0 14px;
+  }
+
+  .legacy-detail strong {
+    font-size: 20px;
+  }
+
+  .legacy-image {
+    min-height: 320px;
+  }
+
+  .legacy-image img {
+    min-height: 320px;
+  }
+}

@@ -4,6 +4,8 @@ import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Collections from "./components/Collections";
 import SignaturePieces from "./components/SignaturePieces";
+import Legacy from "./components/Legacy";
+import DesignRequest from "./components/DesignRequest";
 
 function PlaceholderCollection({ type }) {
   return (
@@ -32,6 +34,8 @@ function Home() {
       <Collections />
 
       <SignaturePieces />
+      <Legacy />
+      <DesignRequest />
     </>
   );
 }
@@ -42,27 +46,48 @@ function App() {
       <Navbar />
 
       <Routes>
+
         {/* HOME */}
 
-        <Route path="/" element={<Home />} />
+        <Route
+          path="/"
+          element={<Home />}
+        />
 
         {/* COLLECTIONS */}
 
-        <Route path="/collections" element={<Collections />} />
+        <Route
+          path="/collections"
+          element={<Collections />}
+        />
 
         {/* GOLD */}
 
         <Route
           path="/collections/gold"
-          element={<PlaceholderCollection type="Gold" />}
+          element={
+            <PlaceholderCollection type="Gold" />
+          }
         />
 
         {/* SILVER */}
 
         <Route
           path="/collections/silver"
-          element={<PlaceholderCollection type="Silver" />}
+          element={
+            <PlaceholderCollection type="Silver" />
+          }
         />
+
+        {/* DESIGN REQUEST */}
+
+        <Route
+          path="/design-request"
+          element={
+            <DesignRequest />
+          }
+        />
+
       </Routes>
     </div>
   );
