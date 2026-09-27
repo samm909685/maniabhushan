@@ -15,17 +15,17 @@ function DesignRequest() {
   const [image, setImage] = useState(null);
   const [imagePreview, setImagePreview] = useState("");
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const handleChange = (event) => {
+    const { name, value } = event.target;
 
-    setFormData((prev) => ({
-      ...prev,
+    setFormData((previous) => ({
+      ...previous,
       [name]: value,
     }));
   };
 
-  const handleImageChange = (e) => {
-    const file = e.target.files?.[0];
+  const handleImageChange = (event) => {
+    const file = event.target.files?.[0];
 
     if (!file) return;
 
@@ -38,13 +38,13 @@ function DesignRequest() {
 
     if (!allowedTypes.includes(file.type)) {
       alert("Only JPG, JPEG, PNG and WEBP images are allowed.");
-      e.target.value = "";
+      event.target.value = "";
       return;
     }
 
     if (file.size > 10 * 1024 * 1024) {
       alert("Maximum image size is 10 MB.");
-      e.target.value = "";
+      event.target.value = "";
       return;
     }
 
@@ -71,15 +71,15 @@ function DesignRequest() {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
     if (!image) {
       alert("Please upload your design.");
       return;
     }
 
-    console.log({
+    console.log("Design Request:", {
       ...formData,
       referenceImage: image,
     });
@@ -98,192 +98,117 @@ function DesignRequest() {
   };
 
   return (
-    <section
-      id="design-request"
-      className="w-full bg-[#FFF8EA]"
-    >
-      {/* ================================
-          TITLE
-      ================================= */}
+    <section className="design-request-section">
+      <div className="design-request-container">
 
-      <div className="w-full px-5 pt-14 pb-8 sm:px-8 md:pt-16 md:pb-10 lg:px-10">
-        <div className="mx-auto w-full max-w-[1180px] text-center">
-          <h2
-            className="text-4xl leading-tight text-[#062D3E] sm:text-5xl md:text-[52px]"
-            style={{
-              fontFamily: 'Georgia, "Times New Roman", serif',
-            }}
-          >
+        {/* =========================================
+            HEADING
+        ========================================== */}
+
+        <div className="design-request-heading">
+
+          <p className="design-request-eyebrow">
+            MANIABHUSHAN
+          </p>
+
+          <h2>
             Request Your Design
           </h2>
 
-          <div className="mt-3 flex items-center justify-center gap-3">
-            <span className="h-px w-10 bg-[#BA8C5B]" />
-            <span className="h-1.5 w-1.5 rounded-full bg-[#BA8C5B]" />
-            <span className="h-px w-10 bg-[#BA8C5B]" />
+          <div className="design-request-heading-line">
+            <span></span>
+            <i></i>
+            <span></span>
           </div>
 
-          <p className="mt-4 text-sm text-[#526D78] sm:text-base">
-            Share your jewellery design and tell us what you need.
-          </p>
+         <p className="design-request-intro">
+  Share your jewellery design with us and tell us what you need.
+  <br />
+  Our team will understand your idea and get back to you on WhatsApp.
+</p>
+
         </div>
-      </div>
 
-      {/* ================================
-          MAIN CONTENT
-      ================================= */}
 
-      <div className="w-full px-5 pb-16 sm:px-8 md:pb-20 lg:px-10">
-        <div
-          className="
-            mx-auto
-            grid
-            w-full
-            max-w-[1180px]
-            grid-cols-1
-            gap-8
-            lg:grid-cols-[1fr_1fr]
-            lg:gap-10
-          "
-        >
+        {/* =========================================
+            MAIN CONTENT
+        ========================================== */}
 
-          {/* ================================
-              LEFT - UPLOAD
-          ================================= */}
+        <div className="design-request-layout">
 
-          <div className="w-full bg-white p-5 sm:p-7">
+          {/* =======================================
+              LEFT — IMAGE UPLOAD
+          ======================================== */}
+
+          <div className="design-upload-card">
+
             <div
+              className="design-upload-box"
               onClick={() => {
                 if (!imagePreview) {
                   fileInputRef.current?.click();
                 }
               }}
-              className="
-                relative
-                flex
-                min-h-[420px]
-                w-full
-                cursor-pointer
-                flex-col
-                items-center
-                justify-center
-                rounded-[18px]
-                border-2
-                border-dashed
-                border-[#D9A441]
-                bg-white
-                px-5
-                text-center
-                sm:min-h-[470px]
-                lg:min-h-[500px]
-              "
             >
+
               {!imagePreview ? (
-                <>
-                  <div
-                    className="
-                      flex
-                      h-[92px]
-                      w-[92px]
-                      items-center
-                      justify-center
-                      rounded-full
-                      bg-[#F8F0E3]
-                      text-[#BA8C5B]
-                    "
-                  >
+                <div className="design-upload-empty">
+
+                  <div className="design-upload-icon">
                     <Upload
-                      size={34}
+                      size={32}
                       strokeWidth={1.7}
                     />
                   </div>
 
-                  <h3
-                    className="
-                      mt-7
-                      text-2xl
-                      font-medium
-                      text-[#062D3E]
-                      sm:text-[30px]
-                    "
-                  >
+                  <h3>
                     Upload Your Design
                   </h3>
 
-                  <p className="mt-2 text-base text-[#526D78] sm:text-lg">
+                  <p className="design-upload-click">
                     Click to choose an image
                   </p>
 
-                  <p className="mt-2 text-sm text-[#9A9A91] sm:text-base">
+                  <p className="design-upload-note">
                     JPG, JPEG, PNG or WEBP · Max 10 MB
                   </p>
-                </>
+
+                </div>
               ) : (
                 <>
+
                   <img
                     src={imagePreview}
                     alt="Selected jewellery design"
-                    className="
-                      absolute
-                      inset-0
-                      h-full
-                      w-full
-                      rounded-[16px]
-                      bg-[#F8F5EE]
-                      object-contain
-                    "
+                    className="design-preview-image"
                   />
 
                   <button
                     type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
+                    className="design-remove-image"
+                    onClick={(event) => {
+                      event.stopPropagation();
                       removeImage();
                     }}
-                    className="
-                      absolute
-                      right-4
-                      top-4
-                      z-20
-                      flex
-                      h-10
-                      w-10
-                      items-center
-                      justify-center
-                      rounded-full
-                      bg-[#062D3E]
-                      text-white
-                    "
                   >
                     <X size={18} />
                   </button>
 
-                  <div
-                    className="
-                      absolute
-                      bottom-0
-                      left-0
-                      right-0
-                      z-10
-                      flex
-                      items-center
-                      gap-2
-                      bg-white/95
-                      px-4
-                      py-3
-                    "
-                  >
+                  <div className="design-selected-file">
+
                     <ImageIcon
                       size={17}
-                      className="shrink-0 text-[#BA8C5B]"
                     />
 
-                    <span className="truncate text-sm text-[#526D78]">
+                    <span>
                       {image?.name}
                     </span>
+
                   </div>
+
                 </>
               )}
+
             </div>
 
             <input
@@ -291,27 +216,28 @@ function DesignRequest() {
               type="file"
               accept="image/jpeg,image/jpg,image/png,image/webp"
               onChange={handleImageChange}
-              className="hidden"
+              className="design-file-input"
             />
+
           </div>
 
-          {/* ================================
-              RIGHT - FORM
-          ================================= */}
 
-          <div className="w-full bg-white p-5 sm:p-7">
+          {/* =======================================
+              RIGHT — FORM
+          ======================================== */}
+
+          <div className="design-form-card">
+
             <form
               onSubmit={handleSubmit}
-              className="flex flex-col gap-4"
+              className="design-form"
             >
 
-              {/* Requirement */}
+              {/* REQUIREMENT */}
 
-              <div>
-                <label
-                  htmlFor="requirement"
-                  className="mb-1.5 block text-base font-medium text-[#062D3E]"
-                >
+              <div className="design-field">
+
+                <label htmlFor="requirement">
                   Your Requirement
                 </label>
 
@@ -319,37 +245,20 @@ function DesignRequest() {
                   id="requirement"
                   name="requirement"
                   required
-                  rows={4}
+                  rows="4"
                   value={formData.requirement}
                   onChange={handleChange}
                   placeholder="For example: I want this type of design but with a different pendant."
-                  className="
-                    block
-                    w-full
-                    resize-none
-                    rounded-[18px]
-                    border
-                    border-[#E1D4BD]
-                    bg-white
-                    px-4
-                    py-3
-                    text-base
-                    leading-6
-                    text-[#062D3E]
-                    outline-none
-                    placeholder:text-[#A7B0B5]
-                    focus:border-[#BA8C5B]
-                  "
                 />
+
               </div>
 
-              {/* Jewellery Type */}
 
-              <div>
-                <label
-                  htmlFor="jewelleryType"
-                  className="mb-1.5 block text-base font-medium text-[#062D3E]"
-                >
+              {/* JEWELLERY TYPE */}
+
+              <div className="design-field">
+
+                <label htmlFor="jewelleryType">
                   Jewellery Type
                 </label>
 
@@ -359,43 +268,54 @@ function DesignRequest() {
                   required
                   value={formData.jewelleryType}
                   onChange={handleChange}
-                  className="
-                    block
-                    h-14
-                    w-full
-                    rounded-[18px]
-                    border
-                    border-[#E1D4BD]
-                    bg-white
-                    px-4
-                    text-base
-                    text-[#526D78]
-                    outline-none
-                    focus:border-[#BA8C5B]
-                  "
                 >
+
                   <option value="">
                     Select jewellery type
                   </option>
 
-                  <option value="Necklace">Necklace</option>
-                  <option value="Mala">Mala</option>
-                  <option value="Earrings">Earrings</option>
-                  <option value="Bangles">Bangles</option>
-                  <option value="Bracelet">Bracelet</option>
-                  <option value="Ring">Ring</option>
-                  <option value="Pendant">Pendant</option>
-                  <option value="Other">Other</option>
+                  <option value="Necklace">
+                    Necklace
+                  </option>
+
+                  <option value="Mala">
+                    Mala
+                  </option>
+
+                  <option value="Earrings">
+                    Earrings
+                  </option>
+
+                  <option value="Bangles">
+                    Bangles
+                  </option>
+
+                  <option value="Bracelet">
+                    Bracelet
+                  </option>
+
+                  <option value="Ring">
+                    Ring
+                  </option>
+
+                  <option value="Pendant">
+                    Pendant
+                  </option>
+
+                  <option value="Other">
+                    Other
+                  </option>
+
                 </select>
+
               </div>
 
-              {/* Request Type */}
 
-              <div>
-                <label
-                  htmlFor="requestType"
-                  className="mb-1.5 block text-base font-medium text-[#062D3E]"
-                >
+              {/* REQUEST TYPE */}
+
+              <div className="design-field">
+
+                <label htmlFor="requestType">
                   What Would You Like?
                 </label>
 
@@ -405,21 +325,8 @@ function DesignRequest() {
                   required
                   value={formData.requestType}
                   onChange={handleChange}
-                  className="
-                    block
-                    h-14
-                    w-full
-                    rounded-[18px]
-                    border
-                    border-[#E1D4BD]
-                    bg-white
-                    px-4
-                    text-base
-                    text-[#526D78]
-                    outline-none
-                    focus:border-[#BA8C5B]
-                  "
                 >
+
                   <option value="">
                     Select an option
                   </option>
@@ -443,16 +350,17 @@ function DesignRequest() {
                   <option value="Other">
                     Other
                   </option>
+
                 </select>
+
               </div>
 
-              {/* Name */}
 
-              <div>
-                <label
-                  htmlFor="designName"
-                  className="mb-1.5 block text-base font-medium text-[#062D3E]"
-                >
+              {/* NAME */}
+
+              <div className="design-field">
+
+                <label htmlFor="designName">
                   Your Name
                 </label>
 
@@ -464,31 +372,16 @@ function DesignRequest() {
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="Enter your name"
-                  className="
-                    block
-                    h-14
-                    w-full
-                    rounded-[18px]
-                    border
-                    border-[#E1D4BD]
-                    bg-white
-                    px-4
-                    text-base
-                    text-[#062D3E]
-                    outline-none
-                    placeholder:text-[#A7B0B5]
-                    focus:border-[#BA8C5B]
-                  "
                 />
+
               </div>
 
-              {/* WhatsApp */}
 
-              <div>
-                <label
-                  htmlFor="designWhatsapp"
-                  className="mb-1.5 block text-base font-medium text-[#062D3E]"
-                >
+              {/* WHATSAPP */}
+
+              <div className="design-field">
+
+                <label htmlFor="designWhatsapp">
                   WhatsApp Number
                 </label>
 
@@ -500,58 +393,775 @@ function DesignRequest() {
                   value={formData.whatsapp}
                   onChange={handleChange}
                   placeholder="Enter your WhatsApp number"
-                  className="
-                    block
-                    h-14
-                    w-full
-                    rounded-[18px]
-                    border
-                    border-[#E1D4BD]
-                    bg-white
-                    px-4
-                    text-base
-                    text-[#062D3E]
-                    outline-none
-                    placeholder:text-[#A7B0B5]
-                    focus:border-[#BA8C5B]
-                  "
                 />
+
               </div>
 
-              {/* Submit */}
+
+              {/* BUTTON */}
 
               <button
                 type="submit"
-                className="
-                  mt-0
-                  flex
-                  h-14
-                  w-full
-                  items-center
-                  justify-center
-                  gap-2
-                  rounded-full
-                  bg-[#062D3E]
-                  px-6
-                  text-base
-                  font-semibold
-                  text-white
-                  transition
-                  hover:bg-[#0A4055]
-                "
+                className="design-submit-button"
               >
                 Send Design Request
 
-                <span className="text-[#D8B15C]">
+                <span>
                   →
                 </span>
+
               </button>
 
             </form>
+
           </div>
 
         </div>
+
       </div>
+
+
+      {/* =========================================
+          DESIGN REQUEST CSS
+      ========================================== */}
+
+      <style>{`
+
+/* =====================================================
+   MANIABHUSHAN DESIGN REQUEST
+===================================================== */
+
+.design-request-section {
+  width: 100%;
+  background: #F4EAD8;
+  padding: 95px 0 115px;
+  overflow: hidden;
+}
+
+
+/* =====================================================
+   MAIN CONTAINER
+===================================================== */
+
+.design-request-container {
+  width: min(1280px, calc(100% - 80px));
+  margin: 0 auto;
+}
+
+
+/* =====================================================
+   HEADING
+===================================================== */
+
+.design-request-heading {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto 58px;
+  text-align: center;
+}
+
+.design-request-eyebrow {
+  margin: 0 0 12px;
+
+  color: #BA8C5B;
+
+  font-size: 10px;
+  font-weight: 600;
+
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+}
+
+.design-request-heading h2 {
+  margin: 0;
+
+  color: #062D3E;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: clamp(42px, 4vw, 56px);
+
+  font-weight: 400;
+  line-height: 1.08;
+
+  letter-spacing: -0.025em;
+}
+
+.design-request-heading-line {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  margin-top: 17px;
+}
+
+.design-request-heading-line span {
+  display: block;
+
+  width: 38px;
+  height: 1px;
+
+  background: #BA8C5B;
+}
+
+.design-request-heading-line i {
+  display: block;
+
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #BA8C5B;
+}
+
+.design-request-intro {
+  margin: 14px auto 0;
+
+  color: #526D78;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 15px;
+
+  line-height: 1.7;
+}
+
+
+/* =====================================================
+   TWO CARDS
+===================================================== */
+
+.design-request-layout {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, 1fr);
+
+  gap: 44px;
+
+  width: 100%;
+
+  align-items: stretch;
+}
+
+
+/* =====================================================
+   LEFT CARD
+===================================================== */
+
+.design-upload-card {
+  width: 100%;
+  padding: 38px;
+  background: #FFFFFF;
+
+  border-radius: 24px;
+
+  box-shadow:
+    0 12px 35px rgba(0, 0, 0, 0.12);
+}
+
+
+/* =====================================================
+   UPLOAD BOX
+===================================================== */
+
+.design-upload-box {
+  position: relative;
+
+  display: flex;
+
+  width: 100%;
+  min-height: 500px;
+
+  align-items: center;
+  justify-content: center;
+
+  border:
+    2px
+    dashed
+    #D9A441;
+
+  border-radius: 18px;
+
+  background: #FFFFFF;
+
+  cursor: pointer;
+
+  overflow: hidden;
+}
+
+
+/* =====================================================
+   UPLOAD EMPTY
+===================================================== */
+
+.design-upload-empty {
+  display: flex;
+
+  width: 100%;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 50px 25px;
+
+  text-align: center;
+}
+
+.design-upload-icon {
+  display: flex;
+
+  width: 92px;
+  height: 92px;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #F8F0E3;
+
+  color: #BA8C5B;
+}
+
+.design-upload-empty h3 {
+  margin: 24px 0 0;
+
+  color: #062D3E;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 30px;
+
+  font-weight: 400;
+
+  line-height: 1.2;
+}
+
+.design-upload-click {
+  margin: 8px 0 0;
+
+  color: #526D78;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 17px;
+
+  line-height: 1.5;
+}
+
+.design-upload-note {
+  margin: 7px 0 0;
+
+  color: #9A9A91;
+
+  font-size: 14px;
+
+  line-height: 1.5;
+}
+
+
+/* =====================================================
+   FILE INPUT
+===================================================== */
+
+.design-file-input {
+  display: none;
+}
+
+
+/* =====================================================
+   IMAGE PREVIEW
+===================================================== */
+
+.design-preview-image {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+
+  background: #F8F5EE;
+}
+
+.design-remove-image {
+  position: absolute;
+
+  z-index: 5;
+
+  top: 15px;
+  right: 15px;
+
+  display: flex;
+
+  width: 38px;
+  height: 38px;
+
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background: #062D3E;
+
+  color: #FFFFFF;
+
+  cursor: pointer;
+}
+
+.design-selected-file {
+  position: absolute;
+
+  z-index: 4;
+
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  padding: 12px 15px;
+
+  background: rgba(255, 255, 255, 0.96);
+
+  color: #526D78;
+
+  font-size: 13px;
+}
+
+.design-selected-file svg {
+  flex-shrink: 0;
+
+  color: #BA8C5B;
+}
+
+.design-selected-file span {
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+}
+
+
+/* =====================================================
+   RIGHT FORM CARD
+===================================================== */
+
+.design-form-card {
+  width: 100%;
+  padding: 38px;
+  background: #FFFFFF;
+
+  border-radius: 24px;
+
+  box-shadow:
+    0 12px 35px rgba(0, 0, 0, 0.12);
+}
+
+
+/* =====================================================
+   FORM
+===================================================== */
+
+.design-form {
+  display: flex;
+
+  width: 100%;
+
+  flex-direction: column;
+
+  gap: 17px;
+}
+
+
+/* =====================================================
+   FIELD
+===================================================== */
+
+.design-field {
+  width: 100%;
+}
+
+.design-field label {
+  display: block;
+
+  margin: 0 0 7px;
+
+  color: #062D3E;
+
+  font-size: 16px;
+
+  font-weight: 600;
+
+  line-height: 1.3;
+}
+
+
+/* =====================================================
+   TEXTAREA
+===================================================== */
+
+.design-field textarea {
+  display: block;
+
+  width: 100%;
+
+  min-height: 140px;
+
+  padding: 13px 15px;
+
+  border:
+    1px
+    solid
+    #E1D4BD;
+
+  border-radius: 17px;
+
+  background: #FFFFFF;
+
+  color: #062D3E;
+
+  font-family: inherit;
+
+  font-size: 15px;
+
+  line-height: 1.55;
+
+  outline: none;
+
+  resize: none;
+
+  transition:
+    border-color 0.2s ease;
+}
+
+
+/* =====================================================
+   INPUTS + SELECTS
+===================================================== */
+
+.design-field input,
+.design-field select {
+  display: block;
+
+  width: 100%;
+
+  height: 58px;
+
+  padding: 0 15px;
+
+  border:
+    1px
+    solid
+    #E1D4BD;
+
+  border-radius: 17px;
+
+  background: #FFFFFF;
+
+  color: #526D78;
+
+  font-family: inherit;
+
+  font-size: 15px;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease;
+}
+
+.design-field input::placeholder,
+.design-field textarea::placeholder {
+  color: #A7B0B5;
+}
+
+.design-field input:focus,
+.design-field textarea:focus,
+.design-field select:focus {
+  border-color: #BA8C5B;
+}
+
+
+/* =====================================================
+   SUBMIT BUTTON
+===================================================== */
+
+.design-submit-button {
+  display: flex;
+
+  width: 100%;
+  height: 58px;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  margin-top: 3px;
+
+  border: none;
+
+  border-radius: 999px;
+
+  background: #062D3E;
+
+  color: #FFFFFF;
+
+  font-family: inherit;
+
+  font-size: 15px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease;
+}
+
+.design-submit-button span {
+  color: #D8B15C;
+
+  font-size: 18px;
+
+  line-height: 1;
+
+  transition:
+    transform 0.25s ease;
+}
+
+.design-submit-button:hover {
+  background: #0A4055;
+}
+
+.design-submit-button:hover span {
+  transform: translateX(4px);
+}
+
+
+/* =====================================================
+   LAPTOP
+===================================================== */
+
+@media (max-width: 1100px) {
+
+  .design-request-section {
+    padding: 80px 0 95px;
+  }
+
+  .design-request-container {
+    width:
+      min(
+        1000px,
+        calc(100% - 56px)
+      );
+  }
+
+  .design-request-layout {
+    gap: 32px;
+  }
+
+  .design-upload-card,
+  .design-form-card {
+    padding: 30px;
+  }
+
+  .design-upload-box {
+    min-height: 470px;
+  }
+
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 850px) {
+
+  .design-request-section {
+    padding: 68px 0 80px;
+  }
+
+  .design-request-container {
+    width:
+      min(
+        720px,
+        calc(100% - 40px)
+      );
+  }
+
+  .design-request-heading {
+    margin-bottom: 42px;
+  }
+
+  .design-request-layout {
+    grid-template-columns: 1fr;
+
+    gap: 28px;
+  }
+
+  .design-upload-card,
+  .design-form-card {
+    padding: 28px;
+  }
+
+  .design-upload-box {
+    min-height: 430px;
+  }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 600px) {
+
+  .design-request-section {
+    padding: 55px 0 65px;
+  }
+
+  .design-request-container {
+    width:
+      calc(100% - 28px);
+  }
+
+  .design-request-heading {
+    margin-bottom: 32px;
+  }
+
+  .design-request-heading h2 {
+    font-size: 37px;
+  }
+
+  .design-request-intro {
+    font-size: 13px;
+  }
+
+  .design-request-layout {
+    gap: 20px;
+  }
+
+  .design-upload-card,
+  .design-form-card {
+    padding: 18px;
+  }
+
+  .design-upload-box {
+    min-height: 360px;
+
+    border-radius: 15px;
+  }
+
+  .design-upload-icon {
+    width: 76px;
+    height: 76px;
+  }
+
+  .design-upload-empty h3 {
+    margin-top: 19px;
+
+    font-size: 25px;
+  }
+
+  .design-upload-click {
+    font-size: 15px;
+  }
+
+  .design-upload-note {
+    font-size: 12px;
+  }
+
+  .design-field label {
+    font-size: 14px;
+  }
+
+  .design-field textarea {
+    min-height: 125px;
+
+    border-radius: 15px;
+
+    font-size: 14px;
+  }
+
+  .design-field input,
+  .design-field select {
+    height: 54px;
+
+    border-radius: 15px;
+
+    font-size: 14px;
+  }
+
+  .design-submit-button {
+    height: 54px;
+
+    font-size: 14px;
+  }
+
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media (max-width: 380px) {
+
+  .design-request-container {
+    width:
+      calc(100% - 20px);
+  }
+
+  .design-request-heading h2 {
+    font-size: 33px;
+  }
+
+  .design-upload-card,
+  .design-form-card {
+    padding: 14px;
+  }
+
+  .design-upload-box {
+    min-height: 330px;
+  }
+
+}
+
+`}</style>
     </section>
   );
 }
