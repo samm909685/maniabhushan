@@ -1,4 +1,5 @@
 import heroBackground from "../assets/images/hero.png";
+import heroMobileBackground from "../assets/images/hero-mobile.png";
 
 // =====================================================
 // INLINE ICONS
@@ -861,7 +862,10 @@ function Hero() {
 
           .maniabhushan-hero {
             min-height:
-              610px;
+              calc(100svh - 72px);
+
+            background-image:
+              url(${heroMobileBackground});
 
             background-position:
               center center;
@@ -881,21 +885,21 @@ function Hero() {
                   255,
                   248,
                   234,
-                  0.90
+                  0.78
                 ) 0%,
 
                 rgba(
                   255,
                   248,
                   234,
-                  0.72
+                  0.48
                 ) 42%,
 
                 rgba(
                   255,
                   248,
                   234,
-                  0.28
+                  0.08
                 ) 100%
               );
           }
@@ -905,7 +909,7 @@ function Hero() {
 
           .hero-content-wrapper {
             min-height:
-              610px;
+              calc(100svh - 72px);
 
             align-items:
               flex-start;
@@ -928,7 +932,7 @@ function Hero() {
               16px;
 
             padding:
-              38px 0 24px;
+              140px 0 28px;
           }
 
 
@@ -1187,7 +1191,7 @@ function Hero() {
 
           .maniabhushan-hero {
             min-height:
-              575px;
+              calc(100svh - 68px);
 
             background-position:
               center center;
@@ -1195,7 +1199,7 @@ function Hero() {
 
           .hero-content-wrapper {
             min-height:
-              575px;
+              calc(100svh - 68px);
           }
 
           .hero-content {
@@ -1209,7 +1213,7 @@ function Hero() {
               13px;
 
             padding-top:
-              34px;
+              120px;
           }
 
 
@@ -1241,12 +1245,12 @@ function Hero() {
 
           .hero-title-main {
             font-size:
-              38px;
+              43px;
           }
 
           .hero-title-sub {
             font-size:
-              27px;
+              30px;
 
             max-width:
               285px;
@@ -1273,13 +1277,13 @@ function Hero() {
 
           .hero-description {
             margin-top:
-              14px;
+              17px;
 
             font-size:
-              11px;
+              12px;
 
             line-height:
-              17px;
+              19px;
           }
 
 
@@ -1287,7 +1291,7 @@ function Hero() {
 
           .hero-buttons {
             margin-top:
-              17px;
+              20px;
 
             gap:
               10px;
@@ -1295,13 +1299,13 @@ function Hero() {
 
           .hero-shop-button {
             max-width:
-              260px;
+              285px;
 
             height:
-              46px;
+              50px;
 
             font-size:
-              6.5px;
+              7px;
           }
 
 
@@ -1309,10 +1313,10 @@ function Hero() {
 
           .hero-features {
             margin-top:
-              17px;
+              24px;
 
             padding-top:
-              10px;
+              12px;
           }
 
           .hero-feature {
@@ -1337,18 +1341,18 @@ function Hero() {
 
           .hero-feature svg {
             width:
-              14px;
+              16px;
 
             height:
-              14px;
+              16px;
           }
 
           .hero-feature p {
             font-size:
-              5px;
+              5.5px;
 
             letter-spacing:
-              0.06em;
+              0.08em;
           }
 
         }

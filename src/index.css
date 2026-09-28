@@ -38,285 +38,618 @@ button {
    ========================================================= */
 
 .legacy-section {
+  position: relative;
   width: 100%;
-  background: #fff8ea;
-  padding: 80px 24px;
+  padding: 110px 24px;
   overflow: hidden;
+  background: #f8f0e3;
 }
 
 .legacy-container {
+  position: relative;
   width: 100%;
-  max-width: 1280px;
+  max-width: 1440px;
   margin: 0 auto;
 }
 
-/* ---------- Heading ---------- */
-
-.legacy-heading {
-  text-align: center;
-  margin-bottom: 48px;
-}
-
-.legacy-eyebrow {
-  margin: 0 0 12px;
-  color: #ba8c5b;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.38em;
-  text-transform: uppercase;
-}
-
-.legacy-heading h2 {
-  margin: 0;
-  color: #062d3e;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 52px;
-  font-weight: 400;
-  line-height: 1.12;
-}
-
-.legacy-line {
-  display: block;
-  width: 56px;
-  height: 1px;
-  margin: 20px auto 0;
-  background: #ba8c5b;
-}
-
-/* ---------- Main Card ---------- */
+/* =========================================================
+   MAIN CARD
+   ========================================================= */
 
 .legacy-card {
   position: relative;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 48% 52%;
   width: 100%;
-  min-height: 500px;
-  background: #ffffff;
+  min-height: 700px;
+  overflow: hidden;
+
+  background: #f8f0e3;
+
   border: 1px solid rgba(186, 140, 91, 0.55);
+
+  box-shadow:
+    0 30px 80px rgba(6, 45, 62, 0.12);
 }
 
-/* Inner decorative border */
+/* Inner luxury border */
 
 .legacy-card::before {
   content: "";
   position: absolute;
-  z-index: 3;
-  top: 14px;
-  right: 14px;
-  bottom: 14px;
-  left: 14px;
-  border: 1px solid rgba(186, 140, 91, 0.22);
+  z-index: 10;
+
+  inset: 14px;
+
+  border: 1px solid rgba(186, 140, 91, 0.28);
+
   pointer-events: none;
 }
 
-/* Corner decorations */
+/* =========================================================
+   OWNER IMAGE
+   ========================================================= */
 
-.legacy-card::after {
-  content: "";
+.legacy-image {
+  position: relative;
+  z-index: 2;
+
+  min-height: 700px;
+
+  overflow: hidden;
+
+  background: #062d3e;
+}
+
+.legacy-image img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+  min-height: 700px;
+
+  object-fit: cover;
+
+  /*
+    Important:
+    Keep both owners visible on desktop.
+  */
+  object-position: center center;
+
+  transform: scale(1.015);
+
+  transition:
+    transform 1.2s cubic-bezier(0.2, 0.65, 0.25, 1);
+}
+
+.legacy-card:hover .legacy-image img {
+  transform: scale(1.045);
+}
+
+/* Dark cinematic edge */
+
+.legacy-image-glow {
   position: absolute;
-  z-index: 4;
-  top: 8px;
-  left: 8px;
-  width: 30px;
-  height: 30px;
-  border-top: 1px solid #ba8c5b;
-  border-left: 1px solid #ba8c5b;
+  inset: 0;
+
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(6, 45, 62, 0.05) 0%,
+      transparent 50%,
+      rgba(6, 45, 62, 0.16) 100%
+    );
+}
+
+/* Image inner frame */
+
+.legacy-image-frame {
+  position: absolute;
+
+  top: 30px;
+  right: 30px;
+  bottom: 30px;
+  left: 30px;
+
+  border: 1px solid rgba(212, 175, 55, 0.65);
+
   pointer-events: none;
 }
 
-/* ---------- Left Content ---------- */
+/* Small decorative symbol */
+
+.legacy-image-mark {
+  position: absolute;
+
+  right: 48px;
+  bottom: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 46px;
+  height: 46px;
+
+  color: #d4af37;
+
+  font-size: 18px;
+
+  border: 1px solid rgba(212, 175, 55, 0.65);
+
+  background: rgba(6, 45, 62, 0.55);
+
+  backdrop-filter: blur(5px);
+
+  z-index: 4;
+}
+
+/* =========================================================
+   CONTENT AREA
+   ========================================================= */
 
 .legacy-content {
   position: relative;
-  z-index: 5;
+  z-index: 3;
+
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 70px 72px;
-  background: #F4EAD8;
+  align-items: center;
+
+  min-height: 700px;
+
+  overflow: hidden;
+
+  padding: 90px 75px;
+
+  background:
+    radial-gradient(
+      circle at 85% 10%,
+      rgba(186, 140, 91, 0.08),
+      transparent 30%
+    ),
+    #f8f0e3;
 }
 
-.legacy-since {
-  margin: 0 0 18px;
-  color: #ba8c5b;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.35em;
-}
+/* Large background year */
 
-.legacy-content h3 {
-  margin: 0;
-  color: #062d3e;
+.legacy-year-bg {
+  position: absolute;
+
+  top: 5px;
+  right: 15px;
+
+  color: rgba(186, 140, 91, 0.10);
+
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 48px;
+
+  font-size: clamp(130px, 14vw, 220px);
+
   font-weight: 400;
-  line-height: 1.08;
+
+  line-height: 1;
+
+  pointer-events: none;
+
+  user-select: none;
 }
+
+/* Content wrapper */
+
+.legacy-content-inner {
+  position: relative;
+  z-index: 3;
+
+  width: 100%;
+  max-width: 650px;
+}
+
+/* =========================================================
+   EYEBROW
+   ========================================================= */
+
+.legacy-eyebrow-row {
+  display: flex;
+  align-items: center;
+
+  gap: 13px;
+
+  margin-bottom: 26px;
+}
+
+.legacy-symbol {
+  color: #ba8c5b;
+
+  font-size: 15px;
+}
+
+.legacy-eyebrow {
+  color: #ba8c5b;
+
+  font-size: 10px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.42em;
+
+  white-space: nowrap;
+}
+
+.legacy-eyebrow-line {
+  width: 70px;
+  height: 1px;
+
+  background: #ba8c5b;
+}
+
+/* =========================================================
+   MAIN TITLE
+   ========================================================= */
+
+.legacy-content h2 {
+  margin: 0;
+
+  color: #062d3e;
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: clamp(50px, 4.4vw, 70px);
+
+  font-weight: 400;
+
+  line-height: 0.98;
+
+  letter-spacing: -0.035em;
+}
+
+/* =========================================================
+   FLOURISH
+   ========================================================= */
+
+.legacy-flourish {
+  display: flex;
+  align-items: center;
+
+  width: 155px;
+
+  gap: 10px;
+
+  margin: 30px 0 28px;
+}
+
+.legacy-flourish span {
+  flex: 1;
+
+  height: 1px;
+
+  background: #ba8c5b;
+}
+
+.legacy-flourish b {
+  color: #ba8c5b;
+
+  font-size: 14px;
+
+  font-weight: 400;
+}
+
+/* =========================================================
+   DESCRIPTION
+   ========================================================= */
 
 .legacy-description {
-  max-width: 540px;
-  margin: 26px 0 0;
+  max-width: 590px;
+
+  margin: 0;
+
   color: #38515a;
-  font-size: 16px;
-  line-height: 1.9;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 15px;
+
+  line-height: 1.85;
+
+  letter-spacing: 0.01em;
 }
 
-/* ---------- Details ---------- */
+/* =========================================================
+   STATS
+   ========================================================= */
 
 .legacy-details {
   display: flex;
   align-items: center;
+
   width: fit-content;
-  margin-top: 30px;
-  padding-top: 22px;
-  border-top: 1px solid rgba(186, 140, 91, 0.22);
+
+  margin-top: 38px;
 }
 
 .legacy-detail {
   display: flex;
   flex-direction: column;
+
+  min-width: 100px;
 }
 
 .legacy-detail strong {
-  color: #062d3e;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 27px;
+  color: #9b6c32;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 32px;
+
   font-weight: 400;
+
   line-height: 1;
 }
 
 .legacy-detail span {
-  margin-top: 7px;
+  margin-top: 9px;
+
   color: #ba8c5b;
-  font-size: 9px;
-  letter-spacing: 0.2em;
+
+  font-size: 8px;
+
+  font-weight: 600;
+
+  line-height: 1.5;
+
+  letter-spacing: 0.23em;
 }
 
 .legacy-divider {
   width: 1px;
-  height: 45px;
-  margin: 0 30px;
-  background: rgba(186, 140, 91, 0.28);
+  height: 52px;
+
+  margin: 0 28px;
+
+  background: rgba(186, 140, 91, 0.35);
 }
 
-/* ---------- Button ---------- */
+/* =========================================================
+   BUTTON
+   ========================================================= */
 
 .legacy-button {
   display: inline-flex;
   align-items: center;
-  width: fit-content;
-  margin-top: 30px;
-  padding: 13px 22px;
-  border: 1px solid #062d3e;
-  color: #062d3e;
-  background: transparent;
+  justify-content: space-between;
+
+  width: 260px;
+
+  margin-top: 42px;
+
+  padding: 17px 22px;
+
+  color: #f8f0e3;
+
+  background: #062d3e;
+
+  border: 1px solid #ba8c5b;
+
   text-decoration: none;
+
   font-size: 10px;
+
   font-weight: 600;
-  letter-spacing: 0.2em;
+
+  letter-spacing: 0.25em;
+
   transition:
-    background 0.3s ease,
-    color 0.3s ease;
+    background 0.35s ease,
+    color 0.35s ease,
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
 }
 
-.legacy-button span {
-  margin-left: 12px;
-  font-size: 15px;
+.legacy-button b {
+  color: #d4af37;
+
+  font-size: 17px;
+
+  font-weight: 400;
+
+  transition: transform 0.35s ease;
 }
 
 .legacy-button:hover {
-  color: #ffffff;
-  background: #062d3e;
+  color: #062d3e;
+
+  background: #d4af37;
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 12px 30px rgba(6, 45, 62, 0.16);
 }
 
-/* ---------- Right Image ---------- */
+.legacy-button:hover b {
+  color: #062d3e;
 
-.legacy-image {
-  position: relative;
-  min-height: 500px;
-  overflow: hidden;
-  background: #dfe3e2;
-}
-
-.legacy-image img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  min-height: 500px;
-  object-fit: cover;
-}
-
-.legacy-image-overlay {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(
-      to top,
-      rgba(6, 45, 62, 0.72) 0%,
-      rgba(6, 45, 62, 0.08) 50%,
-      rgba(6, 45, 62, 0) 100%
-    );
-}
-
-.legacy-image-text {
-  position: absolute;
-  z-index: 5;
-  left: 42px;
-  bottom: 38px;
-  color: #ffffff;
-}
-
-.legacy-image-text span {
-  display: block;
-  padding-left: 12px;
-  border-left: 2px solid #ba8c5b;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.28em;
-}
-
-.legacy-image-text h4 {
-  margin: 6px 0 0 12px;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 27px;
-  font-weight: 400;
+  transform: translateX(5px);
 }
 
 /* =========================================================
    TABLET
    ========================================================= */
 
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
+
   .legacy-section {
-    padding: 65px 20px;
-  }
-
-  .legacy-heading {
-    margin-bottom: 38px;
-  }
-
-  .legacy-heading h2 {
-    font-size: 42px;
+    padding: 80px 20px;
   }
 
   .legacy-card {
-    grid-template-columns: 1fr;
-  }
-
-  .legacy-content {
-    padding: 55px 50px;
-  }
-
-  .legacy-content h3 {
-    font-size: 42px;
+    grid-template-columns: 50% 50%;
+    min-height: 600px;
   }
 
   .legacy-image {
-    min-height: 420px;
+    min-height: 600px;
   }
 
   .legacy-image img {
-    min-height: 420px;
+    min-height: 600px;
+  }
+
+  .legacy-content {
+    min-height: 600px;
+
+    padding: 65px 45px;
+  }
+
+  .legacy-content h2 {
+    font-size: 48px;
+  }
+
+  .legacy-description {
+    font-size: 14px;
+  }
+
+  .legacy-detail {
+    min-width: 80px;
+  }
+
+  .legacy-divider {
+    margin: 0 18px;
+  }
+}
+
+/* =========================================================
+   TABLET / LARGE MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+  .legacy-section {
+    padding: 70px 16px;
+  }
+
+  .legacy-card {
+    display: flex;
+    flex-direction: column;
+
+    min-height: auto;
+
+    border-radius: 0;
+  }
+
+  /*
+    IMAGE FIRST ON MOBILE
+  */
+
+  .legacy-image {
+    order: 1;
+
+    width: 100%;
+
+    /*
+      IMPORTANT:
+      Tall image so the owner remains the main focus.
+    */
+
+    height: 560px;
+    min-height: 560px;
+  }
+
+  .legacy-image img {
+    width: 100%;
+    height: 100%;
+    min-height: 560px;
+
+    /*
+      This is what makes the mobile
+      composition different from desktop.
+    */
+
+    object-position: center 38%;
+
+    transform: none;
+  }
+
+  .legacy-card:hover .legacy-image img {
+    transform: none;
+  }
+
+  .legacy-image-frame {
+    top: 18px;
+    right: 18px;
+    bottom: 18px;
+    left: 18px;
+  }
+
+  .legacy-image-mark {
+    right: 28px;
+    bottom: 28px;
+
+    width: 40px;
+    height: 40px;
+  }
+
+  /*
+    CONTENT SECOND
+  */
+
+  .legacy-content {
+    order: 2;
+
+    min-height: auto;
+
+    padding: 58px 34px 55px;
+  }
+
+  .legacy-year-bg {
+    top: 5px;
+    right: 10px;
+
+    font-size: 115px;
+  }
+
+  .legacy-content h2 {
+    font-size: 44px;
+
+    line-height: 1.02;
+  }
+
+  .legacy-description {
+    max-width: 100%;
+
+    font-size: 14px;
+
+    line-height: 1.8;
+  }
+
+  .legacy-details {
+    width: 100%;
+
+    justify-content: space-between;
+
+    margin-top: 32px;
+  }
+
+  .legacy-detail {
+    min-width: auto;
+  }
+
+  .legacy-divider {
+    height: 45px;
+
+    margin: 0 10px;
+  }
+
+  .legacy-button {
+    width: 245px;
+
+    margin-top: 35px;
   }
 }
 
@@ -325,87 +658,165 @@ button {
    ========================================================= */
 
 @media (max-width: 600px) {
+
   .legacy-section {
-    padding: 55px 14px;
+    padding: 55px 10px;
   }
 
-  .legacy-heading {
-    margin-bottom: 30px;
-  }
-
-  .legacy-eyebrow {
-    font-size: 9px;
-    letter-spacing: 0.3em;
-  }
-
-  .legacy-heading h2 {
-    font-size: 32px;
-    line-height: 1.15;
-  }
-
-  .legacy-line {
-    margin-top: 16px;
+  .legacy-container {
+    max-width: 100%;
   }
 
   .legacy-card {
-    min-height: auto;
+    width: 100%;
   }
+
+  /* -----------------------------------------
+     OWNER IMAGE
+     ----------------------------------------- */
+
+  .legacy-image {
+    height: 485px;
+    min-height: 485px;
+  }
+
+  .legacy-image img {
+    height: 100%;
+    min-height: 485px;
+
+    /*
+      Keep both people visible.
+
+      Slightly lower crop gives more
+      body/ceremonial clothing while
+      keeping faces prominent.
+    */
+
+    object-position: center 36%;
+  }
+
+  .legacy-image-frame {
+    top: 14px;
+    right: 14px;
+    bottom: 14px;
+    left: 14px;
+  }
+
+  .legacy-image-mark {
+    right: 24px;
+    bottom: 24px;
+
+    width: 36px;
+    height: 36px;
+
+    font-size: 14px;
+  }
+
+  /* -----------------------------------------
+     CONTENT
+     ----------------------------------------- */
 
   .legacy-content {
-    padding: 42px 28px 45px;
+    padding: 48px 25px 42px;
   }
 
-  .legacy-since {
-    font-size: 9px;
-    letter-spacing: 0.28em;
+  .legacy-year-bg {
+    top: 5px;
+    right: 0;
+
+    font-size: 105px;
+
+    color: rgba(186, 140, 91, 0.09);
   }
 
-  .legacy-content h3 {
-    font-size: 35px;
-    line-height: 1.1;
+  .legacy-eyebrow-row {
+    gap: 9px;
+
+    margin-bottom: 20px;
+  }
+
+  .legacy-symbol {
+    font-size: 12px;
+  }
+
+  .legacy-eyebrow {
+    font-size: 8px;
+
+    letter-spacing: 0.32em;
+  }
+
+  .legacy-eyebrow-line {
+    width: 45px;
+  }
+
+  .legacy-content h2 {
+    font-size: 38px;
+
+    line-height: 1.04;
+
+    letter-spacing: -0.025em;
+  }
+
+  .legacy-flourish {
+    width: 125px;
+
+    margin: 23px 0 22px;
+  }
+
+  .legacy-flourish b {
+    font-size: 12px;
   }
 
   .legacy-description {
-    margin-top: 22px;
-    font-size: 14px;
-    line-height: 1.8;
+    font-size: 13px;
+
+    line-height: 1.78;
   }
 
+  /* -----------------------------------------
+     STATS
+     ----------------------------------------- */
+
   .legacy-details {
-    margin-top: 25px;
-    padding-top: 18px;
+    margin-top: 28px;
+
+    padding-top: 3px;
   }
 
   .legacy-detail strong {
-    font-size: 22px;
+    font-size: 24px;
+  }
+
+  .legacy-detail span {
+    margin-top: 7px;
+
+    font-size: 6.5px;
+
+    letter-spacing: 0.16em;
   }
 
   .legacy-divider {
     height: 38px;
-    margin: 0 20px;
+
+    margin: 0 7px;
   }
+
+  /* -----------------------------------------
+     BUTTON
+     ----------------------------------------- */
 
   .legacy-button {
-    margin-top: 26px;
-    padding: 12px 18px;
-    font-size: 9px;
-  }
+    width: 100%;
 
-  .legacy-image {
-    min-height: 360px;
-  }
+    max-width: 260px;
 
-  .legacy-image img {
-    min-height: 360px;
-  }
+    margin-top: 30px;
 
-  .legacy-image-text {
-    left: 28px;
-    bottom: 28px;
-  }
+    padding: 15px 17px;
 
-  .legacy-image-text h4 {
-    font-size: 22px;
+    font-size: 8px;
+
+    letter-spacing: 0.2em;
   }
 }
 
@@ -414,40 +825,50 @@ button {
    ========================================================= */
 
 @media (max-width: 380px) {
+
   .legacy-section {
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-
-  .legacy-heading h2 {
-    font-size: 28px;
-  }
-
-  .legacy-content {
-    padding: 35px 22px 38px;
-  }
-
-  .legacy-content h3 {
-    font-size: 31px;
-  }
-
-  .legacy-description {
-    font-size: 13px;
-  }
-
-  .legacy-divider {
-    margin: 0 14px;
-  }
-
-  .legacy-detail strong {
-    font-size: 20px;
+    padding-left: 7px;
+    padding-right: 7px;
   }
 
   .legacy-image {
-    min-height: 320px;
+    height: 455px;
+    min-height: 455px;
   }
 
   .legacy-image img {
-    min-height: 320px;
+    min-height: 455px;
+
+    object-position: center 35%;
+  }
+
+  .legacy-content {
+    padding: 44px 21px 38px;
+  }
+
+  .legacy-content h2 {
+    font-size: 34px;
+  }
+
+  .legacy-description {
+    font-size: 12.5px;
+  }
+
+  .legacy-detail strong {
+    font-size: 22px;
+  }
+
+  .legacy-divider {
+    margin: 0 5px;
+  }
+
+  .legacy-detail span {
+    font-size: 6px;
+  }
+
+  .legacy-button {
+    max-width: 100%;
+
+    font-size: 7.5px;
   }
 }

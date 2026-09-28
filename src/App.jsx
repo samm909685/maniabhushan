@@ -6,6 +6,7 @@ import Collections from "./components/Collections";
 import SignaturePieces from "./components/SignaturePieces";
 import Legacy from "./components/Legacy";
 import DesignRequest from "./components/DesignRequest";
+import Footer from "./components/Footer";
 
 function PlaceholderCollection({ type }) {
   return (
@@ -36,6 +37,7 @@ function Home() {
       <SignaturePieces />
       <Legacy />
       <DesignRequest />
+      <Footer />
     </>
   );
 }

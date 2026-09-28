@@ -1,80 +1,125 @@
 import { Link } from "react-router-dom";
+import familyImage from "../assets/images/family.png";
 
 function Legacy() {
   return (
     <section className="legacy-section">
       <div className="legacy-container">
 
-        {/* Heading */}
-        <div className="legacy-heading">
-          <p className="legacy-eyebrow">OUR LEGACY</p>
+        {/* =========================
+            DESKTOP / TABLET / MOBILE
+            ========================= */}
 
-          <h2>
-            A Story Woven Through
-            <br />
-            Generations
-          </h2>
-
-          <span className="legacy-line"></span>
-        </div>
-
-        {/* Main Card */}
         <div className="legacy-card">
 
-          {/* Left Content */}
-          <div className="legacy-content">
+          {/* =========================
+              OWNER IMAGE
+              ========================= */}
 
-            <p className="legacy-since">SINCE 1965</p>
-
-            <h3>
-              Where Tradition
-              <br />
-              Becomes Legacy
-            </h3>
-
-            <p className="legacy-description">
-              Maniabhushan carries forward a story built on craftsmanship,
-              trust and an enduring love for jewellery. What began with a
-              passion for timeless artistry continues through generations,
-              bringing traditional elegance into a new era.
-            </p>
-
-            <div className="legacy-details">
-
-              <div className="legacy-detail">
-                <strong>1965</strong>
-                <span>BEGINNING</span>
-              </div>
-
-              <div className="legacy-divider"></div>
-
-              <div className="legacy-detail">
-                <strong>Generations</strong>
-                <span>OF CRAFT</span>
-              </div>
-
-            </div>
-
-            <Link to="/legacy" className="legacy-button">
-              DISCOVER OUR STORY
-              <span>→</span>
-            </Link>
-
-          </div>
-
-          {/* Right Image */}
           <div className="legacy-image">
 
             <img
-              src="/family.jpg"
+              src={familyImage}
               alt="Maniabhushan family legacy"
             />
 
-            <div className="legacy-image-overlay"></div>
+            <div className="legacy-image-frame"></div>
 
-            <div className="legacy-image-text">
-              <span>MANIABHUSHAN</span>
-              <h4>A Heritage of Trust</h4>
+            <div className="legacy-image-glow"></div>
+
+            {/* Decorative gold mark */}
+            <div className="legacy-image-mark">
+              ✦
+            </div>
+
+          </div>
+
+          {/* =========================
+              LEGACY CONTENT
+              ========================= */}
+
+          <div className="legacy-content">
+
+            {/* Large background year */}
+            <div className="legacy-year-bg">
+              1994
+            </div>
+
+            <div className="legacy-content-inner">
+
+              <div className="legacy-eyebrow-row">
+                <span className="legacy-symbol">✦</span>
+
+                <span className="legacy-eyebrow">
+                  OUR LEGACY
+                </span>
+
+                <span className="legacy-eyebrow-line"></span>
+              </div>
+
+              <h2>
+                A Story Woven
+                <br />
+                Through Generations
+              </h2>
+
+              <div className="legacy-flourish">
+                <span></span>
+                <b>✦</b>
+                <span></span>
+              </div>
+
+              <p className="legacy-description">
+                Since 1994, Maniabhushan has been more than just a jewellery
+                house — it’s a family legacy, shaped by trust, craftsmanship
+                and an unwavering commitment to timeless beauty. What began
+                as a vision continues to shine through generations, in every
+                design we create.
+              </p>
+
+              {/* =========================
+                  LEGACY STATS
+                  ========================= */}
+
+              <div className="legacy-details">
+
+                <div className="legacy-detail">
+                  <strong>1994</strong>
+                  <span>ESTABLISHED</span>
+                </div>
+
+                <div className="legacy-divider"></div>
+
+                <div className="legacy-detail">
+                  <strong>2</strong>
+                  <span>GENERATIONS</span>
+                </div>
+
+                <div className="legacy-divider"></div>
+
+                <div className="legacy-detail">
+                  <strong>∞</strong>
+                  <span>
+                    VALUES
+                    <br />
+                    THAT CONTINUE
+                  </span>
+                </div>
+
+              </div>
+
+              {/* =========================
+                  CTA
+                  ========================= */}
+
+              <Link
+                to="/legacy"
+                className="legacy-button"
+              >
+                <span>DISCOVER OUR STORY</span>
+                <b>→</b>
+              </Link>
+
             </div>
 
           </div>
