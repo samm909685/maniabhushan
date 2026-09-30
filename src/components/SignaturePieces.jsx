@@ -1,3 +1,5 @@
+import { useEffect, useRef, useState } from "react";
+
 import image1 from "../assets/images/image1.jpg";
 import image2 from "../assets/images/image2.jpg";
 import image3 from "../assets/images/image3.jpg";
@@ -85,10 +87,38 @@ function SignatureCard({ piece }) {
 }
 
 function SignaturePieces() {
+  const sectionRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(section);
+        }
+      },
+      {
+        threshold: 0.18,
+      }
+    );
+
+    observer.observe(section);
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       id="signature-pieces"
-      className="signature-section"
+      className={`signature-section ${
+        isVisible ? "signature-visible" : ""
+      }`}
     >
       <div className="signature-container">
 
@@ -885,6 +915,395 @@ background: #FFF8EA;
           }
 
         }
+
+        /* =====================================================
+   SIGNATURE PIECES - SCROLL ANIMATION
+===================================================== */
+
+
+/* -----------------------------------------------------
+   INITIAL STATE
+----------------------------------------------------- */
+
+.signature-heading,
+.signature-card {
+  opacity: 0;
+}
+
+
+/* -----------------------------------------------------
+   SECTION HEADING
+----------------------------------------------------- */
+
+.signature-section.signature-visible
+.signature-heading {
+  animation:
+    signatureHeadingReveal
+    0.9s
+    cubic-bezier(0.22, 1, 0.36, 1)
+    both;
+}
+
+@keyframes signatureHeadingReveal {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* -----------------------------------------------------
+   LARGE LEFT CARD
+----------------------------------------------------- */
+
+.signature-section.signature-visible
+.signature-card-large {
+  animation:
+    signatureLargeReveal
+    1s
+    cubic-bezier(0.22, 1, 0.36, 1)
+    0.25s
+    both;
+}
+
+@keyframes signatureLargeReveal {
+  from {
+    opacity: 0;
+    transform:
+      translateX(-55px)
+      translateY(15px)
+      scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform:
+      translateX(0)
+      translateY(0)
+      scale(1);
+  }
+}
+
+
+/* -----------------------------------------------------
+   RIGHT COLUMN
+----------------------------------------------------- */
+
+.signature-section.signature-visible
+.signature-card-small:nth-child(1) {
+  animation:
+    signatureRightTopReveal
+    0.9s
+    cubic-bezier(0.22, 1, 0.36, 1)
+    0.4s
+    both;
+}
+
+.signature-section.signature-visible
+.signature-card-small:nth-child(2) {
+  animation:
+    signatureRightBottomReveal
+    0.9s
+    cubic-bezier(0.22, 1, 0.36, 1)
+    0.55s
+    both;
+}
+
+
+/* -----------------------------------------------------
+   TOP RIGHT CARD
+----------------------------------------------------- */
+
+@keyframes signatureRightTopReveal {
+  from {
+    opacity: 0;
+    transform:
+      translateX(55px)
+      translateY(10px)
+      scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform:
+      translateX(0)
+      translateY(0)
+      scale(1);
+  }
+}
+
+
+/* -----------------------------------------------------
+   BOTTOM RIGHT CARD
+----------------------------------------------------- */
+
+@keyframes signatureRightBottomReveal {
+  from {
+    opacity: 0;
+    transform:
+      translateX(55px)
+      translateY(25px)
+      scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform:
+      translateX(0)
+      translateY(0)
+      scale(1);
+  }
+}
+
+
+/* =====================================================
+   CARD HOVER
+===================================================== */
+
+.signature-card {
+  transition:
+    transform 0.45s
+      cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.45s ease;
+}
+
+.signature-card:hover {
+  transform: translateY(-5px);
+
+  box-shadow:
+    0 18px 40px
+    rgba(6, 45, 62, 0.13);
+}
+
+
+/* =====================================================
+   IMAGE HOVER
+===================================================== */
+
+.signature-card:hover
+.signature-image {
+  transform: scale(1.045);
+}
+
+
+/* =====================================================
+   FRAME HOVER
+===================================================== */
+
+.signature-frame {
+  transition:
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.signature-card:hover
+.signature-frame {
+  border-color:
+    rgba(186, 140, 91, 0.95);
+
+  box-shadow:
+    inset 0 0 0 1px
+      rgba(255, 255, 255, 0.9);
+}
+
+
+/* =====================================================
+   EYEBROW
+===================================================== */
+
+.signature-eyebrow {
+  transition:
+    letter-spacing 0.35s ease,
+    color 0.35s ease;
+}
+
+.signature-card:hover
+.signature-eyebrow {
+  letter-spacing: 0.32em;
+  color: #D4AF37;
+}
+
+
+/* =====================================================
+   NAME
+===================================================== */
+
+.signature-name {
+  transition:
+    transform 0.35s ease,
+    color 0.35s ease;
+}
+
+.signature-card:hover
+.signature-name {
+  transform: translateX(2px);
+}
+
+
+/* =====================================================
+   BUTTON
+===================================================== */
+
+.signature-button {
+  position: relative;
+  overflow: hidden;
+
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.signature-button::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: -120%;
+
+  width: 80%;
+  height: 100%;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.12),
+      transparent
+    );
+
+  transform: skewX(-20deg);
+
+  transition:
+    left 0.65s ease;
+}
+
+.signature-button:hover::before {
+  left: 140%;
+}
+
+.signature-button:hover {
+  transform: translateY(-2px);
+}
+
+
+/* =====================================================
+   BUTTON ARROW
+===================================================== */
+
+.signature-button-arrow {
+  display: inline-block;
+
+  transition:
+    transform 0.35s
+    cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.signature-button:hover
+.signature-button-arrow {
+  transform: translateX(5px);
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 640px) {
+
+  .signature-section.signature-visible
+  .signature-card-large {
+    animation-name:
+      signatureMobileLargeReveal;
+  }
+
+  .signature-section.signature-visible
+  .signature-card-small:nth-child(1) {
+    animation-name:
+      signatureMobileCardReveal;
+  }
+
+  .signature-section.signature-visible
+  .signature-card-small:nth-child(2) {
+    animation-name:
+      signatureMobileCardReveal;
+  }
+
+  @keyframes signatureMobileLargeReveal {
+
+    from {
+      opacity: 0;
+      transform:
+        translateY(35px)
+        scale(0.985);
+    }
+
+    to {
+      opacity: 1;
+      transform:
+        translateY(0)
+        scale(1);
+    }
+
+  }
+
+  @keyframes signatureMobileCardReveal {
+
+    from {
+      opacity: 0;
+      transform:
+        translateY(30px)
+        scale(0.985);
+    }
+
+    to {
+      opacity: 1;
+      transform:
+        translateY(0)
+        scale(1);
+    }
+
+  }
+
+  .signature-card:hover {
+    transform:
+      translateY(-3px);
+  }
+
+}
+
+
+/* =====================================================
+   REDUCED MOTION
+===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .signature-heading,
+  .signature-card {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .signature-card,
+  .signature-image,
+  .signature-frame,
+  .signature-eyebrow,
+  .signature-name,
+  .signature-button,
+  .signature-button-arrow {
+    transition: none !important;
+  }
+
+}
 
       `}</style>
     </section>

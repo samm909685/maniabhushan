@@ -1357,6 +1357,336 @@ function Hero() {
 
         }
 
+        /* =====================================================
+   MANIABHUSHAN HERO - PREMIUM MOTION
+   ===================================================== */
+
+/* -----------------------------------------------------
+   BACKGROUND MOTION
+----------------------------------------------------- */
+
+.maniabhushan-hero {
+  animation: heroBackgroundReveal 1.6s ease-out both;
+}
+
+@keyframes heroBackgroundReveal {
+  from {
+    opacity: 0;
+    background-size: 104%;
+  }
+
+  to {
+    opacity: 1;
+    background-size: cover;
+  }
+}
+
+
+/* -----------------------------------------------------
+   LIGHT OVERLAY
+----------------------------------------------------- */
+
+.hero-light-overlay {
+  animation:
+    heroOverlayReveal 1.4s ease-out 0.15s both;
+}
+
+@keyframes heroOverlayReveal {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+
+/* -----------------------------------------------------
+   CONTENT
+----------------------------------------------------- */
+
+.hero-content {
+  animation:
+    heroContentReveal 1s cubic-bezier(0.22, 1, 0.36, 1)
+    0.25s both;
+}
+
+@keyframes heroContentReveal {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* -----------------------------------------------------
+   TOP LABEL
+----------------------------------------------------- */
+
+.hero-top-label {
+  animation:
+    heroFadeUp 0.8s ease-out 0.45s both;
+}
+
+
+/* -----------------------------------------------------
+   MAIN TITLE
+----------------------------------------------------- */
+
+.hero-title-main {
+  animation:
+    heroTitleReveal 0.9s cubic-bezier(0.22, 1, 0.36, 1)
+    0.55s both;
+}
+
+.hero-title-sub {
+  animation:
+    heroTitleReveal 0.9s cubic-bezier(0.22, 1, 0.36, 1)
+    0.68s both;
+}
+
+@keyframes heroTitleReveal {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* -----------------------------------------------------
+   DIVIDER
+----------------------------------------------------- */
+
+.hero-divider {
+  animation:
+    heroDividerReveal 0.9s ease-out 0.85s both;
+}
+
+@keyframes heroDividerReveal {
+  from {
+    opacity: 0;
+    transform: scaleX(0.5);
+  }
+
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+
+/* -----------------------------------------------------
+   DESCRIPTION
+----------------------------------------------------- */
+
+.hero-description {
+  animation:
+    heroFadeUp 0.8s ease-out 1s both;
+}
+
+@keyframes heroFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* -----------------------------------------------------
+   BUTTONS
+----------------------------------------------------- */
+
+.hero-buttons {
+  animation:
+    heroFadeUp 0.8s ease-out 1.12s both;
+}
+
+
+/* SHOP BUTTON
+----------------------------------------------------- */
+
+.hero-shop-button {
+  position: relative;
+  overflow: hidden;
+
+  transition:
+    background-color 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.hero-shop-button::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: -120%;
+
+  width: 80%;
+  height: 100%;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.12),
+      transparent
+    );
+
+  transform: skewX(-20deg);
+
+  transition:
+    left 0.65s ease;
+}
+
+.hero-shop-button:hover::before {
+  left: 140%;
+}
+
+.hero-shop-button:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 10px 28px rgba(6, 45, 62, 0.18);
+}
+
+.hero-shop-arrow {
+  display: inline-block;
+
+  transition:
+    transform 0.3s ease;
+}
+
+.hero-shop-button:hover .hero-shop-arrow {
+  transform: translateX(5px);
+}
+
+
+/* -----------------------------------------------------
+   ARTISAN BUTTON
+----------------------------------------------------- */
+
+.hero-artisan-button {
+  position: relative;
+
+  transition:
+    color 0.3s ease;
+}
+
+.hero-artisan-button::after {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  bottom: -1px;
+
+  width: 0;
+  height: 1px;
+
+  background: #062D3E;
+
+  transition:
+    width 0.35s ease;
+}
+
+.hero-artisan-button:hover::after {
+  width: 100%;
+}
+
+
+/* -----------------------------------------------------
+   FEATURES
+----------------------------------------------------- */
+
+.hero-features {
+  animation:
+    heroFeaturesReveal 1s ease-out 1.3s both;
+}
+
+@keyframes heroFeaturesReveal {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* -----------------------------------------------------
+   INDIVIDUAL FEATURE ANIMATION
+----------------------------------------------------- */
+
+.hero-feature {
+  transition:
+    transform 0.3s ease;
+}
+
+.hero-feature:hover {
+  transform: translateY(-3px);
+}
+
+.hero-feature svg {
+  transition:
+    transform 0.35s ease;
+}
+
+.hero-feature:hover svg {
+  transform:
+    translateY(-2px)
+    scale(1.08);
+}
+
+
+/* -----------------------------------------------------
+   RESPECT REDUCED MOTION
+----------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .maniabhushan-hero,
+  .hero-light-overlay,
+  .hero-content,
+  .hero-top-label,
+  .hero-title-main,
+  .hero-title-sub,
+  .hero-divider,
+  .hero-description,
+  .hero-buttons,
+  .hero-features {
+    animation: none !important;
+  }
+
+  .hero-shop-button,
+  .hero-artisan-button,
+  .hero-feature,
+  .hero-feature svg {
+    transition: none !important;
+  }
+
+}
+
       `}</style>
     </section>
   );

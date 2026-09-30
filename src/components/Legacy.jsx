@@ -1,9 +1,40 @@
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import familyImage from "../assets/images/family.png";
 
 function Legacy() {
+  const sectionRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(section);
+        }
+      },
+      {
+        threshold: 0.18,
+      }
+    );
+
+    observer.observe(section);
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="legacy-section">
+    <section
+      ref={sectionRef}
+      className={`legacy-section ${
+        isVisible ? "legacy-visible" : ""
+      }`}
+    >
       <div className="legacy-container">
 
         {/* =========================

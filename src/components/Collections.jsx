@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import goldCategory from "../assets/images/goldcategory.png";
 import silverCategory from "../assets/images/silvercategory.png";
@@ -26,14 +27,42 @@ const collections = [
 ];
 
 function Collections() {
+  const sectionRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(section);
+        }
+      },
+      {
+        threshold: 0.18,
+      }
+    );
+
+    observer.observe(section);
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section
-      className="collections-section"
-      style={{
-        backgroundColor: CREAM,
-        color: NAVY,
-      }}
-    >
+  ref={sectionRef}
+  className={`collections-section ${
+    isVisible ? "collections-visible" : ""
+  }`}
+  style={{
+    backgroundColor: CREAM,
+    color: NAVY,
+  }}
+>
       <div className="collections-container">
 
         {/* =========================
@@ -391,7 +420,463 @@ function Collections() {
 
         }
 
-      `}</style>
+       /* =====================================================
+   MANIABHUSHAN COLLECTIONS - SCROLL ANIMATIONS
+   ===================================================== */
+
+/* -----------------------------------------------------
+   INITIAL STATE
+----------------------------------------------------- */
+
+.collections-heading,
+.collections-eyebrow,
+.collections-title,
+.collections-line,
+.collections-description {
+  opacity: 0;
+}
+
+.collection-card {
+  opacity: 0;
+}
+
+
+/* -----------------------------------------------------
+   HEADING REVEAL
+----------------------------------------------------- */
+
+.collections-section.collections-visible .collections-heading {
+  animation:
+    collectionsHeadingReveal
+    0.9s
+    cubic-bezier(0.22, 1, 0.36, 1)
+    both;
+}
+
+@keyframes collectionsHeadingReveal {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* -----------------------------------------------------
+   EYEBROW
+----------------------------------------------------- */
+
+.collections-section.collections-visible .collections-eyebrow {
+  animation:
+    collectionsFadeUp
+    0.7s
+    ease-out
+    0.1s
+    both;
+}
+
+
+/* -----------------------------------------------------
+   TITLE
+----------------------------------------------------- */
+
+.collections-section.collections-visible .collections-title {
+  animation:
+    collectionsTitleReveal
+    0.8s
+    cubic-bezier(0.22, 1, 0.36, 1)
+    0.18s
+    both;
+}
+
+@keyframes collectionsTitleReveal {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* -----------------------------------------------------
+   GOLD LINE
+----------------------------------------------------- */
+
+.collections-section.collections-visible .collections-line {
+  transform-origin: center;
+
+  animation:
+    collectionsLineReveal
+    0.7s
+    ease-out
+    0.45s
+    both;
+}
+
+@keyframes collectionsLineReveal {
+  from {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+
+/* -----------------------------------------------------
+   DESCRIPTION
+----------------------------------------------------- */
+
+.collections-section.collections-visible .collections-description {
+  animation:
+    collectionsFadeUp
+    0.8s
+    ease-out
+    0.55s
+    both;
+}
+
+@keyframes collectionsFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* =====================================================
+   COLLECTION CARDS
+===================================================== */
+
+.collections-section.collections-visible .collection-card {
+  animation-duration: 0.95s;
+  animation-timing-function:
+    cubic-bezier(0.22, 1, 0.36, 1);
+  animation-fill-mode: both;
+}
+
+
+/* -----------------------------------------------------
+   GOLD CARD — FROM LEFT
+----------------------------------------------------- */
+
+.collections-section.collections-visible
+.collection-card:nth-child(1) {
+  animation-name: collectionGoldReveal;
+  animation-delay: 0.25s;
+}
+
+@keyframes collectionGoldReveal {
+  from {
+    opacity: 0;
+    transform:
+      translateX(-55px)
+      translateY(12px)
+      scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform:
+      translateX(0)
+      translateY(0)
+      scale(1);
+  }
+}
+
+
+/* -----------------------------------------------------
+   SILVER CARD — FROM RIGHT
+----------------------------------------------------- */
+
+.collections-section.collections-visible
+.collection-card:nth-child(2) {
+  animation-name: collectionSilverReveal;
+  animation-delay: 0.4s;
+}
+
+@keyframes collectionSilverReveal {
+  from {
+    opacity: 0;
+    transform:
+      translateX(55px)
+      translateY(12px)
+      scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform:
+      translateX(0)
+      translateY(0)
+      scale(1);
+  }
+}
+
+
+/* =====================================================
+   CARD HOVER
+===================================================== */
+
+.collection-card {
+  transition:
+    transform 0.45s
+      cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s ease,
+    box-shadow 0.45s ease;
+}
+
+.collection-card:hover {
+  transform: translateY(-6px);
+
+  border-color: ${GOLD};
+
+  box-shadow:
+    0 20px 45px
+    rgba(6, 45, 62, 0.16);
+}
+
+
+/* =====================================================
+   IMAGE
+===================================================== */
+
+.collection-image {
+  transform: scale(1.015);
+
+  transition:
+    transform 1.1s
+    cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.collection-card:hover .collection-image {
+  transform: scale(1.07);
+}
+
+
+/* =====================================================
+   OVERLAY
+===================================================== */
+
+.collection-overlay {
+  transition:
+    background 0.6s ease;
+}
+
+.collection-card:hover .collection-overlay {
+  background:
+    linear-gradient(
+      to top,
+      rgba(6, 45, 62, 0.98) 0%,
+      rgba(6, 45, 62, 0.73) 30%,
+      rgba(6, 45, 62, 0.20) 68%,
+      rgba(6, 45, 62, 0.04) 100%
+    );
+}
+
+
+/* =====================================================
+   CONTENT
+===================================================== */
+
+.collection-content {
+  transition:
+    transform 0.45s
+    cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.collection-card:hover .collection-content {
+  transform: translateY(-4px);
+}
+
+
+/* =====================================================
+   SUBTITLE
+===================================================== */
+
+.collection-subtitle {
+  transition:
+    letter-spacing 0.35s ease,
+    color 0.35s ease;
+}
+
+.collection-card:hover .collection-subtitle {
+  letter-spacing: 0.34em;
+  color: #D4AF37;
+}
+
+
+/* =====================================================
+   NAME
+===================================================== */
+
+.collection-name {
+  transition:
+    transform 0.4s ease,
+    color 0.35s ease;
+}
+
+.collection-card:hover .collection-name {
+  color: #FFFFFF;
+  transform: translateX(2px);
+}
+
+
+/* =====================================================
+   DESCRIPTION
+===================================================== */
+
+.collection-description {
+  transition:
+    transform 0.4s ease,
+    opacity 0.4s ease;
+}
+
+.collection-card:hover .collection-description {
+  transform: translateY(-2px);
+}
+
+
+/* =====================================================
+   EXPLORE LINK
+===================================================== */
+
+.collection-link {
+  transition:
+    color 0.3s ease,
+    gap 0.3s ease;
+}
+
+.collection-card:hover .collection-link {
+  color: #FFFFFF;
+  gap: 18px;
+}
+
+
+/* =====================================================
+   ARROW
+===================================================== */
+
+.collection-arrow {
+  display: inline-block;
+
+  transition:
+    transform 0.35s
+      cubic-bezier(0.22, 1, 0.36, 1),
+    color 0.3s ease;
+}
+
+.collection-card:hover .collection-arrow {
+  color: #D4AF37;
+  transform: translateX(6px);
+}
+
+
+/* =====================================================
+   IMAGE EDGE SHINE
+===================================================== */
+
+.collection-card::after {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  left: -120%;
+
+  width: 55%;
+  height: 100%;
+
+  background:
+    linear-gradient(
+      100deg,
+      transparent,
+      rgba(255, 255, 255, 0.08),
+      transparent
+    );
+
+  transform: skewX(-18deg);
+
+  pointer-events: none;
+  z-index: 4;
+
+  transition:
+    left 0.9s ease;
+}
+
+.collection-card:hover::after {
+  left: 140%;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 640px) {
+
+  .collection-card:hover {
+    transform: translateY(-3px);
+  }
+
+  .collection-card:hover .collection-image {
+    transform: scale(1.045);
+  }
+
+  .collection-card:hover .collection-content {
+    transform: translateY(-2px);
+  }
+
+  .collection-card::after {
+    display: none;
+  }
+}
+
+
+/* =====================================================
+   REDUCED MOTION
+===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .collections-heading,
+  .collections-eyebrow,
+  .collections-title,
+  .collections-line,
+  .collections-description,
+  .collection-card {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .collection-card,
+  .collection-image,
+  .collection-content,
+  .collection-name,
+  .collection-description,
+  .collection-link,
+  .collection-arrow {
+    transition: none !important;
+  }
+}
+  `}</style>
+
     </section>
   );
 }
