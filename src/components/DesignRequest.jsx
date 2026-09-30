@@ -1,7 +1,8 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Upload, X, Image as ImageIcon } from "lucide-react";
 
 function DesignRequest() {
+  const sectionRef = useRef(null);
   const fileInputRef = useRef(null);
 
   const [formData, setFormData] = useState({
@@ -14,6 +15,40 @@ function DesignRequest() {
 
   const [image, setImage] = useState(null);
   const [imagePreview, setImagePreview] = useState("");
+
+  useEffect(() => {
+    const section = sectionRef.current;
+
+    if (!section) return;
+
+    const revealElements = section.querySelectorAll(
+      ".design-request-heading, .design-request-layout, .design-upload-card, .design-form-card, .design-upload-empty, .design-field, .design-submit-button"
+    );
+
+    const observers = [];
+
+    revealElements.forEach((element) => {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            element.classList.add("design-request-revealed");
+            observer.unobserve(element);
+          }
+        },
+        {
+          threshold: 0.2,
+          rootMargin: "0px 0px -8% 0px",
+        }
+      );
+
+      observer.observe(element);
+      observers.push(observer);
+    });
+
+    return () => {
+      observers.forEach((observer) => observer.disconnect());
+    };
+  }, []);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -98,327 +133,332 @@ function DesignRequest() {
   };
 
   return (
-    <section className="design-request-section">
-      <div className="design-request-container">
+    <>
+      <section
+        ref={sectionRef}
+        className="design-request-section"
+      >
+        <div className="design-request-container">
 
-        {/* =========================================
-            HEADING
-        ========================================== */}
+          {/* =========================================
+              HEADING
+          ========================================== */}
 
-        <div className="design-request-heading">
+          <div className="design-request-heading">
 
-          <p className="design-request-eyebrow">
-            MANIABHUSHAN
-          </p>
+            <p className="design-request-eyebrow">
+              MANIABHUSHAN
+            </p>
 
-          <h2>
-            Request Your Design
-          </h2>
+            <h2>
+              Request Your Design
+            </h2>
 
-          <div className="design-request-heading-line">
-            <span></span>
-            <i></i>
-            <span></span>
+            <div className="design-request-heading-line">
+              <span></span>
+              <i></i>
+              <span></span>
+            </div>
+
+            <p className="design-request-intro">
+              Share your jewellery design with us and tell us what you need.
+              <br />
+              Our team will understand your idea and get back to you on WhatsApp.
+            </p>
+
           </div>
 
-         <p className="design-request-intro">
-  Share your jewellery design with us and tell us what you need.
-  <br />
-  Our team will understand your idea and get back to you on WhatsApp.
-</p>
 
-        </div>
+          {/* =========================================
+              MAIN CONTENT
+          ========================================== */}
 
+          <div className="design-request-layout">
 
-        {/* =========================================
-            MAIN CONTENT
-        ========================================== */}
+            {/* =======================================
+                LEFT — IMAGE UPLOAD
+            ======================================== */}
 
-        <div className="design-request-layout">
+            <div className="design-upload-card">
 
-          {/* =======================================
-              LEFT — IMAGE UPLOAD
-          ======================================== */}
+              <div
+                className="design-upload-box"
+                onClick={() => {
+                  if (!imagePreview) {
+                    fileInputRef.current?.click();
+                  }
+                }}
+              >
 
-          <div className="design-upload-card">
+                {!imagePreview ? (
+                  <div className="design-upload-empty">
 
-            <div
-              className="design-upload-box"
-              onClick={() => {
-                if (!imagePreview) {
-                  fileInputRef.current?.click();
-                }
-              }}
-            >
+                    <div className="design-upload-icon">
+                      <Upload
+                        size={32}
+                        strokeWidth={1.7}
+                      />
+                    </div>
 
-              {!imagePreview ? (
-                <div className="design-upload-empty">
+                    <h3>
+                      Upload Your Design
+                    </h3>
 
-                  <div className="design-upload-icon">
-                    <Upload
-                      size={32}
-                      strokeWidth={1.7}
-                    />
-                  </div>
+                    <p className="design-upload-click">
+                      Click to choose an image
+                    </p>
 
-                  <h3>
-                    Upload Your Design
-                  </h3>
-
-                  <p className="design-upload-click">
-                    Click to choose an image
-                  </p>
-
-                  <p className="design-upload-note">
-                    JPG, JPEG, PNG or WEBP · Max 10 MB
-                  </p>
-
-                </div>
-              ) : (
-                <>
-
-                  <img
-                    src={imagePreview}
-                    alt="Selected jewellery design"
-                    className="design-preview-image"
-                  />
-
-                  <button
-                    type="button"
-                    className="design-remove-image"
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      removeImage();
-                    }}
-                  >
-                    <X size={18} />
-                  </button>
-
-                  <div className="design-selected-file">
-
-                    <ImageIcon
-                      size={17}
-                    />
-
-                    <span>
-                      {image?.name}
-                    </span>
+                    <p className="design-upload-note">
+                      JPG, JPEG, PNG or WEBP · Max 10 MB
+                    </p>
 
                   </div>
+                ) : (
+                  <>
 
-                </>
-              )}
+                    <img
+                      src={imagePreview}
+                      alt="Selected jewellery design"
+                      className="design-preview-image"
+                    />
+
+                    <button
+                      type="button"
+                      className="design-remove-image"
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        removeImage();
+                      }}
+                    >
+                      <X size={18} />
+                    </button>
+
+                    <div className="design-selected-file">
+
+                      <ImageIcon
+                        size={17}
+                      />
+
+                      <span>
+                        {image?.name}
+                      </span>
+
+                    </div>
+
+                  </>
+                )}
+
+              </div>
+
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/jpeg,image/jpg,image/png,image/webp"
+                onChange={handleImageChange}
+                className="design-file-input"
+              />
 
             </div>
 
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="image/jpeg,image/jpg,image/png,image/webp"
-              onChange={handleImageChange}
-              className="design-file-input"
-            />
 
-          </div>
+            {/* =======================================
+                RIGHT — FORM
+            ======================================== */}
 
+            <div className="design-form-card">
 
-          {/* =======================================
-              RIGHT — FORM
-          ======================================== */}
-
-          <div className="design-form-card">
-
-            <form
-              onSubmit={handleSubmit}
-              className="design-form"
-            >
-
-              {/* REQUIREMENT */}
-
-              <div className="design-field">
-
-                <label htmlFor="requirement">
-                  Your Requirement
-                </label>
-
-                <textarea
-                  id="requirement"
-                  name="requirement"
-                  required
-                  rows="4"
-                  value={formData.requirement}
-                  onChange={handleChange}
-                  placeholder="For example: I want this type of design but with a different pendant."
-                />
-
-              </div>
-
-
-              {/* JEWELLERY TYPE */}
-
-              <div className="design-field">
-
-                <label htmlFor="jewelleryType">
-                  Jewellery Type
-                </label>
-
-                <select
-                  id="jewelleryType"
-                  name="jewelleryType"
-                  required
-                  value={formData.jewelleryType}
-                  onChange={handleChange}
-                >
-
-                  <option value="">
-                    Select jewellery type
-                  </option>
-
-                  <option value="Necklace">
-                    Necklace
-                  </option>
-
-                  <option value="Mala">
-                    Mala
-                  </option>
-
-                  <option value="Earrings">
-                    Earrings
-                  </option>
-
-                  <option value="Bangles">
-                    Bangles
-                  </option>
-
-                  <option value="Bracelet">
-                    Bracelet
-                  </option>
-
-                  <option value="Ring">
-                    Ring
-                  </option>
-
-                  <option value="Pendant">
-                    Pendant
-                  </option>
-
-                  <option value="Other">
-                    Other
-                  </option>
-
-                </select>
-
-              </div>
-
-
-              {/* REQUEST TYPE */}
-
-              <div className="design-field">
-
-                <label htmlFor="requestType">
-                  What Would You Like?
-                </label>
-
-                <select
-                  id="requestType"
-                  name="requestType"
-                  required
-                  value={formData.requestType}
-                  onChange={handleChange}
-                >
-
-                  <option value="">
-                    Select an option
-                  </option>
-
-                  <option value="Custom Design">
-                    Custom Design
-                  </option>
-
-                  <option value="Similar Design">
-                    Similar Design
-                  </option>
-
-                  <option value="Modification">
-                    Modification
-                  </option>
-
-                  <option value="Bulk Requirement">
-                    Bulk Requirement
-                  </option>
-
-                  <option value="Other">
-                    Other
-                  </option>
-
-                </select>
-
-              </div>
-
-
-              {/* NAME */}
-
-              <div className="design-field">
-
-                <label htmlFor="designName">
-                  Your Name
-                </label>
-
-                <input
-                  id="designName"
-                  name="name"
-                  type="text"
-                  required
-                  value={formData.name}
-                  onChange={handleChange}
-                  placeholder="Enter your name"
-                />
-
-              </div>
-
-
-              {/* WHATSAPP */}
-
-              <div className="design-field">
-
-                <label htmlFor="designWhatsapp">
-                  WhatsApp Number
-                </label>
-
-                <input
-                  id="designWhatsapp"
-                  name="whatsapp"
-                  type="tel"
-                  required
-                  value={formData.whatsapp}
-                  onChange={handleChange}
-                  placeholder="Enter your WhatsApp number"
-                />
-
-              </div>
-
-
-              {/* BUTTON */}
-
-              <button
-                type="submit"
-                className="design-submit-button"
+              <form
+                onSubmit={handleSubmit}
+                className="design-form"
               >
-                Send Design Request
 
-                <span>
-                  →
-                </span>
+                {/* REQUIREMENT */}
 
-              </button>
+                <div className="design-field">
 
-            </form>
+                  <label htmlFor="requirement">
+                    Your Requirement
+                  </label>
+
+                  <textarea
+                    id="requirement"
+                    name="requirement"
+                    required
+                    rows="4"
+                    value={formData.requirement}
+                    onChange={handleChange}
+                    placeholder="For example: I want this type of design but with a different pendant."
+                  />
+
+                </div>
+
+
+                {/* JEWELLERY TYPE */}
+
+                <div className="design-field">
+
+                  <label htmlFor="jewelleryType">
+                    Jewellery Type
+                  </label>
+
+                  <select
+                    id="jewelleryType"
+                    name="jewelleryType"
+                    required
+                    value={formData.jewelleryType}
+                    onChange={handleChange}
+                  >
+
+                    <option value="">
+                      Select jewellery type
+                    </option>
+
+                    <option value="Necklace">
+                      Necklace
+                    </option>
+
+                    <option value="Mala">
+                      Mala
+                    </option>
+
+                    <option value="Earrings">
+                      Earrings
+                    </option>
+
+                    <option value="Bangles">
+                      Bangles
+                    </option>
+
+                    <option value="Bracelet">
+                      Bracelet
+                    </option>
+
+                    <option value="Ring">
+                      Ring
+                    </option>
+
+                    <option value="Pendant">
+                      Pendant
+                    </option>
+
+                    <option value="Other">
+                      Other
+                    </option>
+
+                  </select>
+
+                </div>
+
+
+                {/* REQUEST TYPE */}
+
+                <div className="design-field">
+
+                  <label htmlFor="requestType">
+                    What Would You Like?
+                  </label>
+
+                  <select
+                    id="requestType"
+                    name="requestType"
+                    required
+                    value={formData.requestType}
+                    onChange={handleChange}
+                  >
+
+                    <option value="">
+                      Select an option
+                    </option>
+
+                    <option value="Custom Design">
+                      Custom Design
+                    </option>
+
+                    <option value="Similar Design">
+                      Similar Design
+                    </option>
+
+                    <option value="Modification">
+                      Modification
+                    </option>
+
+                    <option value="Bulk Requirement">
+                      Bulk Requirement
+                    </option>
+
+                    <option value="Other">
+                      Other
+                    </option>
+
+                  </select>
+
+                </div>
+
+
+                {/* NAME */}
+
+                <div className="design-field">
+
+                  <label htmlFor="designName">
+                    Your Name
+                  </label>
+
+                  <input
+                    id="designName"
+                    name="name"
+                    type="text"
+                    required
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Enter your name"
+                  />
+
+                </div>
+
+
+                {/* WHATSAPP */}
+
+                <div className="design-field">
+
+                  <label htmlFor="designWhatsapp">
+                    WhatsApp Number
+                  </label>
+
+                  <input
+                    id="designWhatsapp"
+                    name="whatsapp"
+                    type="tel"
+                    required
+                    value={formData.whatsapp}
+                    onChange={handleChange}
+                    placeholder="Enter your WhatsApp number"
+                  />
+
+                </div>
+
+
+                {/* BUTTON */}
+
+                <button
+                  type="submit"
+                  className="design-submit-button"
+                >
+                  Send Design Request
+
+                  <span>
+                    →
+                  </span>
+
+                </button>
+
+              </form>
+
+            </div>
 
           </div>
 
         </div>
-
-      </div>
+      </section>
 
 
       {/* =========================================
@@ -458,6 +498,32 @@ function DesignRequest() {
   max-width: 760px;
   margin: 0 auto 58px;
   text-align: center;
+
+  opacity: 0;
+  translate: 0 35px;
+  scale: 0.985;
+}
+
+.design-request-heading.design-request-revealed {
+  animation:
+    designHeadingReveal
+    0.9s
+    cubic-bezier(0.22, 1, 0.36, 1)
+    both;
+}
+
+@keyframes designHeadingReveal {
+  from {
+    opacity: 0;
+    translate: 0 35px;
+    scale: 0.985;
+  }
+
+  to {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+  }
 }
 
 .design-request-eyebrow {
@@ -563,12 +629,39 @@ function DesignRequest() {
 .design-upload-card {
   width: 100%;
   padding: 38px;
+
   background: #FFFFFF;
 
   border-radius: 24px;
 
   box-shadow:
     0 12px 35px rgba(0, 0, 0, 0.12);
+
+  opacity: 0;
+  translate: -55px 20px;
+  scale: 0.985;
+}
+
+.design-upload-card.design-request-revealed {
+  animation:
+    designUploadReveal
+    1s
+    cubic-bezier(0.22, 1, 0.36, 1)
+    both;
+}
+
+@keyframes designUploadReveal {
+  from {
+    opacity: 0;
+    translate: -55px 20px;
+    scale: 0.985;
+  }
+
+  to {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+  }
 }
 
 
@@ -619,6 +712,30 @@ function DesignRequest() {
   padding: 50px 25px;
 
   text-align: center;
+
+  opacity: 0;
+  translate: 0 25px;
+}
+
+.design-upload-empty.design-request-revealed {
+  animation:
+    designUploadInnerReveal
+    0.75s
+    0.15s
+    cubic-bezier(0.22, 1, 0.36, 1)
+    both;
+}
+
+@keyframes designUploadInnerReveal {
+  from {
+    opacity: 0;
+    translate: 0 25px;
+  }
+
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
 }
 
 .design-upload-icon {
@@ -779,12 +896,39 @@ function DesignRequest() {
 .design-form-card {
   width: 100%;
   padding: 38px;
+
   background: #FFFFFF;
 
   border-radius: 24px;
 
   box-shadow:
     0 12px 35px rgba(0, 0, 0, 0.12);
+
+  opacity: 0;
+  translate: 55px 20px;
+  scale: 0.985;
+}
+
+.design-form-card.design-request-revealed {
+  animation:
+    designFormReveal
+    1s
+    cubic-bezier(0.22, 1, 0.36, 1)
+    both;
+}
+
+@keyframes designFormReveal {
+  from {
+    opacity: 0;
+    translate: 55px 20px;
+    scale: 0.985;
+  }
+
+  to {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+  }
 }
 
 
@@ -809,6 +953,29 @@ function DesignRequest() {
 
 .design-field {
   width: 100%;
+
+  opacity: 0;
+  translate: 0 25px;
+}
+
+.design-field.design-request-revealed {
+  animation:
+    designFieldReveal
+    0.65s
+    cubic-bezier(0.22, 1, 0.36, 1)
+    both;
+}
+
+@keyframes designFieldReveal {
+  from {
+    opacity: 0;
+    translate: 0 25px;
+  }
+
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
 }
 
 .design-field label {
@@ -945,9 +1112,32 @@ function DesignRequest() {
 
   cursor: pointer;
 
+  opacity: 0;
+  translate: 0 25px;
+
   transition:
     background 0.25s ease,
     transform 0.25s ease;
+}
+
+.design-submit-button.design-request-revealed {
+  animation:
+    designButtonReveal
+    0.7s
+    cubic-bezier(0.22, 1, 0.36, 1)
+    both;
+}
+
+@keyframes designButtonReveal {
+  from {
+    opacity: 0;
+    translate: 0 25px;
+  }
+
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
 }
 
 .design-submit-button span {
@@ -1161,8 +1351,69 @@ function DesignRequest() {
 
 }
 
-`}</style>
-    </section>
+
+/* =====================================================
+   MOBILE SCROLL REVEAL
+===================================================== */
+
+@media (max-width: 850px) {
+
+  .design-upload-card.design-request-revealed,
+  .design-form-card.design-request-revealed {
+    animation:
+      designMobileCardReveal
+      0.9s
+      cubic-bezier(0.22, 1, 0.36, 1)
+      both;
+  }
+
+  @keyframes designMobileCardReveal {
+    from {
+      opacity: 0;
+      translate: 0 35px;
+      scale: 0.985;
+    }
+
+    to {
+      opacity: 1;
+      translate: 0 0;
+      scale: 1;
+    }
+  }
+
+}
+
+
+/* =====================================================
+   REDUCED MOTION
+===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .design-request-heading,
+  .design-upload-card,
+  .design-form-card,
+  .design-upload-empty,
+  .design-field,
+  .design-submit-button {
+    animation: none !important;
+
+    opacity: 1 !important;
+
+    translate: none !important;
+
+    scale: 1 !important;
+  }
+
+  .design-submit-button,
+  .design-submit-button span {
+    transition: none !important;
+  }
+
+}
+
+      `}</style>
+    </>
   );
 }
 

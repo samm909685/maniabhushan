@@ -7,6 +7,7 @@ import SignaturePieces from "./components/SignaturePieces";
 import Legacy from "./components/Legacy";
 import DesignRequest from "./components/DesignRequest";
 import Footer from "./components/Footer";
+import AdminLogin from "./components/AdminLogin";
 
 function PlaceholderCollection({ type }) {
   return (
@@ -48,6 +49,11 @@ function App() {
       <Navbar />
 
       <Routes>
+
+        <Route
+          path="/admin/login"
+          element={<AdminLogin />}
+        />
 
         {/* HOME */}
 
